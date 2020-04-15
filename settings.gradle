@@ -1,2 +1,3 @@
 rootProject.name='PushNotificationPractice'
 include ':app'
+include ':app:forceupdate'

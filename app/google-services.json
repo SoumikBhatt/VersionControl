@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "601928968726",
+    "firebase_url": "https://chatapp-lets-chat.firebaseio.com",
+    "project_id": "chatapp-lets-chat",
+    "storage_bucket": "chatapp-lets-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601928968726:android:0612dae2443642c1",
+        "android_client_info": {
+          "package_name": "com.soumik.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601928968726-79uk50kmmvsr34v0ci08s1b028v6rqja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.soumik.chatapp",
+            "certificate_hash": "6c8f6fbd1774c06b7e35567549c0e6b1531dd8db"
+          }
+        },
+        {
+          "client_id": "601928968726-7pep022qddkrocia4ppea49b38r775rg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNB5PrWuyHZ3CtallynUTy6zcHI24B-Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601928968726-7pep022qddkrocia4ppea49b38r775rg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601928968726:android:9a398eb2436e0a3d152337",
+        "android_client_info": {
+          "package_name": "com.soumik.pushnotificationpractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601928968726-ls7dh12o4qdtdl4icvuib893p17910ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.soumik.pushnotificationpractice",
+            "certificate_hash": "3c4d15f688afd39bc5fb75c151971902c9d8c79f"
+          }
+        },
+        {
+          "client_id": "601928968726-7pep022qddkrocia4ppea49b38r775rg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNB5PrWuyHZ3CtallynUTy6zcHI24B-Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601928968726-7pep022qddkrocia4ppea49b38r775rg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
