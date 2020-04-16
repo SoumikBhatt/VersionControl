@@ -54,8 +54,8 @@ class ForceUpdate {
             WebService.callCheckVersionAPI(checkVersionBody) { response: CheckVersionResponse?, error: String? ->
                 if (error == null) {
                     if (response?.success == "true") {
-                        if (response.details!=null){
-                            when (response.details.status) {
+                        try{
+                            when (response.details?.status) {
                                 1 -> {
                                     //active
                                     preferenceManager.isDeprecated = false
@@ -77,8 +77,9 @@ class ForceUpdate {
                                     showExpiredDialog(context, appName, appIcon)
                                 }
                             }
-                        } else {
+                        } catch (e:Exception) {
                             Log.d(TAG,"Details is null on Version: ${checkVersionBody.version_code}")
+                            Log.d(TAG,"Error: ${e.localizedMessage}}")
                         }
 
                     } else Log.d(TAG, "Check Version success is ${response?.success}")
