@@ -54,28 +54,33 @@ class ForceUpdate {
             WebService.callCheckVersionAPI(checkVersionBody) { response: CheckVersionResponse?, error: String? ->
                 if (error == null) {
                     if (response?.success == "true") {
-                        when (response.details.status) {
-                            1 -> {
-                                //active
-                                preferenceManager.isDeprecated = false
-                                Log.d(TAG, "Already active")
-                            }
-                            2 -> {
-                                //deprecated
-                                if (preferenceManager.isDeprecated) {
-                                    Log.d("FORCE UPDATE", "LRD: ${getDiff(preferenceManager.lastReminderDayOfUpdate)}.........REMINDER: ${preferenceManager.showReminder}")
-                                    if (getDiff(preferenceManager.lastReminderDayOfUpdate) > dayLimit && preferenceManager.showReminder) {
-                                        showDeprecatedDialog(context, appName, appIcon)
-                                    } else Log.d(TAG,"Will show after $dayLimit days")
-                                } else showDeprecatedDialog(context, appName, appIcon)
+                        if (response.details!=null){
+                            when (response.details.status) {
+                                1 -> {
+                                    //active
+                                    preferenceManager.isDeprecated = false
+                                    Log.d(TAG, "Already active")
+                                }
+                                2 -> {
+                                    //deprecated
+                                    if (preferenceManager.isDeprecated) {
+                                        Log.d("FORCE UPDATE", "LRD: ${getDiff(preferenceManager.lastReminderDayOfUpdate)}.........REMINDER: ${preferenceManager.showReminder}")
+                                        if (getDiff(preferenceManager.lastReminderDayOfUpdate) > dayLimit && preferenceManager.showReminder) {
+                                            showDeprecatedDialog(context, appName, appIcon)
+                                        } else Log.d(TAG,"Will show after $dayLimit days")
+                                    } else showDeprecatedDialog(context, appName, appIcon)
 
+                                }
+                                else -> {
+                                    //expired
+                                    preferenceManager.isDeprecated = false
+                                    showExpiredDialog(context, appName, appIcon)
+                                }
                             }
-                            else -> {
-                                //expired
-                                preferenceManager.isDeprecated = false
-                                showExpiredDialog(context, appName, appIcon)
-                            }
+                        } else {
+                            Log.d(TAG,"Details is null on Version: ${checkVersionBody.version_code}")
                         }
+
                     } else Log.d(TAG, "Check Version success is ${response?.success}")
                 } else Log.d(TAG, "Check Version Failed...")
             }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CheckVersionResponse(
     @SerializedName("details")
-    val details: Details,
+    val details: Details?,
     @SerializedName("success")
     val success: String
 )
