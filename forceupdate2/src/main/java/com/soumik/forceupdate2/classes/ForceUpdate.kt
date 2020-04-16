@@ -1,6 +1,7 @@
 package com.soumik.forceupdate2.classes
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -30,14 +31,14 @@ class ForceUpdate {
             return checkVersionFromApi(context,checkVersionBody,appName, appIcon)
         }
 
-        private fun checkVersionFromApi(context: Context, checkVersionBody: CheckVersionBody, appName:String, appIcon:Int):String {
+        private fun checkVersionFromApi(context: Context,checkVersionBody: CheckVersionBody,appName:String,appIcon:Int):String {
 
             var status = ""
 
             WebService.callCheckVersionAPI(checkVersionBody){ response: CheckVersionResponse?, error: String? ->
                 if (error==null){
                     if (response?.success=="true"){
-                        status = when (response.details.status) {
+                        status += when (response.details.status) {
                             1 -> {
                                 //active
                                 "active"
@@ -55,6 +56,7 @@ class ForceUpdate {
                 } else Log.d(TAG,"Check Version Failed...")
             }
 
+            Log.d(TAG,"STATUS: $status")
             return status
         }
 
@@ -65,7 +67,7 @@ class ForceUpdate {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setCancelable(false)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setContentView(R.layout.dialog_expired)
+                setContentView(R.layout.dialog_deprecated)
             }
 
             val iconIV = dialog.findViewById<ImageView>(R.id.iv_icon_deprecated)
@@ -79,19 +81,22 @@ class ForceUpdate {
             instructionTV.text = "A new version of $appName is available"
 
             updateBtn.setOnClickListener {
-                deprecatedStatus = "update"
+                deprecatedStatus += "update"
                 Utills.rateApp(context)
+                (context as Activity).finish()
                 dialog.dismiss()
             }
 
             remindLaterBtn.setOnClickListener {
-                deprecatedStatus = "remindLater"
+                deprecatedStatus += "remindLater"
                 dialog.dismiss()
             }
 
             deprecatedStatus += if (notShowCheck.isChecked) " don'tShow"
             else " show"
 
+            dialog.show()
+            Log.d(TAG,"D_STATUS: $deprecatedStatus")
             return deprecatedStatus
         }
 
@@ -114,17 +119,18 @@ class ForceUpdate {
             textTV.text = "$appName needs an update"
 
             updateBtn.setOnClickListener {
-                expiredStatus = "update expired"
+                expiredStatus += "update expired"
                 Utills.rateApp(context)
+                (context as Activity).finish()
                 dialog.dismiss()
             }
 
             dialog.show()
-
+            Log.d(TAG,"E_STATUS: $expiredStatus")
             return expiredStatus
         }
 
-       private const val TAG = "FORCE UPDATE"
+        private const val TAG = "FORCE UPDATE"
     }
 
 

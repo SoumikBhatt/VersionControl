@@ -55,45 +55,45 @@
                 android:padding="3dp"/>
 
             <Button
+                android:id="@+id/btn_deprecated_update"
                 android:layout_width="275dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:id="@+id/btn_deprecated_update"
-                android:text="Update Now"
-                android:textColor="@android:color/white"
                 android:background="#009161"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="30dp" />
+                android:text="Update Now"
+                android:textColor="@android:color/white" />
 
             <Button
+                android:id="@+id/btn_deprecated_remind_later"
                 android:layout_width="275dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:id="@+id/btn_deprecated_remind_later"
-                android:text="Remind me later"
-                android:textColor="@android:color/white"
                 android:background="#009161"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="30dp" />
+                android:text="Remind me later"
+                android:textColor="@android:color/white" />
 
             <CheckBox
                 android:id="@+id/check_donT_show"
                 android:layout_width="275dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
                 android:padding="3dp"
-                android:text="Don't show this message"/>
+                android:text="Don't show this message" />
 
         </LinearLayout>
 

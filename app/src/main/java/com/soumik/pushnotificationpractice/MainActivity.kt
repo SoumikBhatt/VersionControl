@@ -8,6 +8,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonIOException
 import com.google.gson.JsonObject
+import com.soumik.forceupdate.classes.ForceUpdate
 import com.soumik.pushnotificationpractice.network.apiService
 import com.soumik.pushnotificationpractice.network.model.Data
 import com.soumik.pushnotificationpractice.network.model.NotificationBody
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity() {
                 Log.e("TAG", token)
             }
 
-//        val updater =
-//
-//
+//        val update = ForceUpdate.checkVersion(this,1,44.toString(), resources.getString(R .string.app_name),R.drawable.ic_icon_app)
+////
+////
 //        Log.d("PUSH_UPDATE",update)
 
 //        val notification = JSONObject()
