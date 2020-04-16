@@ -153,7 +153,7 @@ class ForceUpdate {
         val currentDateTime: String
             get() {
                 val c = Calendar.getInstance()
-                val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                val df = SimpleDateFormat("yyyy-MM-dd")
                 return df.format(c.time)
             }
 
