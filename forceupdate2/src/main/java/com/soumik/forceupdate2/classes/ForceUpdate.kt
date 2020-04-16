@@ -28,11 +28,35 @@ class ForceUpdate {
 
         fun checkVersion(context: Context,appID:Int,versionCode:String,appName: String,appIcon: Int):String{
 
+            var status=""
             val checkVersionBody = CheckVersionBody()
             checkVersionBody.app_id = appID
             checkVersionBody.version_code = versionCode
 
-            return checkVersionFromApi(context,checkVersionBody,appName, appIcon)
+            WebService.callCheckVersionAPI(checkVersionBody){ response: CheckVersionResponse?, error: String? ->
+                if (error==null){
+                    if (response?.success=="true"){
+                        status = when (response.details.status) {
+                            1 -> {
+                                //active
+                                "active"
+                            }
+                            2 -> {
+                                //deprecated
+                                "deprecated"
+//                                showDeprecatedDialog(context,appName,appIcon)
+                            }
+                            else -> {
+                                //expired
+                                "expired"
+//                                showExpiredDialog(context,appName,appIcon)
+                            }
+                        }
+                    } else Log.d(TAG,"Check Version success is ${response?.success}")
+                } else Log.d(TAG,"Check Version Failed...")
+            }
+
+            return status
         }
 
         private fun checkVersionFromApi(context: Context,checkVersionBody: CheckVersionBody,appName:String,appIcon:Int):String {
