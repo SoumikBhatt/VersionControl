@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity() {
                 Log.e("TAG", token)
             }
 
+//        val updater =
+//
+//
+//        Log.d("PUSH_UPDATE",update)
+
 //        val notification = JSONObject()
 //        val notificationBody= JSONObject()
 

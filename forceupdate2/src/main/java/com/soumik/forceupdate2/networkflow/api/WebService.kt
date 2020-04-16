@@ -1,11 +1,11 @@
-package com.soumik.forceupdate.networkflow.api
+package com.soumik.forceupdate2.networkflow.api
 
 import android.util.Log
 import com.google.gson.Gson
-import com.soumik.forceupdate.networkflow.models.AdvertisementBody
-import com.soumik.forceupdate.networkflow.models.AppDetailsResponse
-import com.soumik.forceupdate.networkflow.models.CheckVersionBody
-import com.soumik.forceupdate.networkflow.models.CheckVersionResponse
+import com.soumik.forceupdate2.networkflow.models.AdvertisementBody
+import com.soumik.forceupdate2.networkflow.models.AppDetailsResponse
+import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
+import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +31,7 @@ object WebService {
         })
     }
 
-    fun callAppDetails(bodyModel: AdvertisementBody,callBack: (AppDetailsResponse?, String?) -> Unit){
+    fun callAppDetails(bodyModel: AdvertisementBody, callBack: (AppDetailsResponse?, String?) -> Unit){
         apiService.appDetails(bodyModel,"5zrPZaxoekgpuDA2RMiCXMV1jvyO3CiLqebWl2l8n7klzLvWQS").enqueue(object : Callback<AppDetailsResponse>{
             override fun onFailure(call: Call<AppDetailsResponse>, t: Throwable) {
                 Log.d("OnFailure","App Details: ${t.localizedMessage}")

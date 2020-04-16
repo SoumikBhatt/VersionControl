@@ -1,4 +1,4 @@
-package com.soumik.forceupdate.classes
+package com.soumik.forceupdate2.classes
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -11,10 +11,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import com.soumik.forceupdate.R
-import com.soumik.forceupdate.networkflow.api.WebService
-import com.soumik.forceupdate.networkflow.models.CheckVersionBody
-import com.soumik.forceupdate.networkflow.models.CheckVersionResponse
+import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
+import com.soumik.forceupdate2.R
+import com.soumik.forceupdate2.networkflow.api.WebService
+import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
 import com.soumik.utilslibrary.Utills
 
 class ForceUpdate {
@@ -30,7 +30,7 @@ class ForceUpdate {
             return checkVersionFromApi(context,checkVersionBody,appName, appIcon)
         }
 
-        private fun checkVersionFromApi(context: Context,checkVersionBody: CheckVersionBody,appName:String,appIcon:Int):String {
+        private fun checkVersionFromApi(context: Context, checkVersionBody: CheckVersionBody, appName:String, appIcon:Int):String {
 
             var status = ""
 

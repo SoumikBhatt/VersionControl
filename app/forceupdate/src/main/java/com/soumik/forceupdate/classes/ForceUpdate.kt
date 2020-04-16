@@ -1,6 +1,7 @@
 package com.soumik.forceupdate.classes
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -55,6 +56,7 @@ class ForceUpdate {
                 } else Log.d(TAG,"Check Version Failed...")
             }
 
+            Log.d(TAG,"STATUS: $status")
             return status
         }
 
@@ -65,7 +67,7 @@ class ForceUpdate {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setCancelable(false)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setContentView(R.layout.dialog_expired)
+                setContentView(R.layout.dialog_deprecated)
             }
 
             val iconIV = dialog.findViewById<ImageView>(R.id.iv_icon_deprecated)
@@ -81,6 +83,7 @@ class ForceUpdate {
             updateBtn.setOnClickListener {
                 deprecatedStatus = "update"
                 Utills.rateApp(context)
+                (context as Activity).finish()
                 dialog.dismiss()
             }
 
@@ -92,6 +95,7 @@ class ForceUpdate {
             deprecatedStatus += if (notShowCheck.isChecked) " don'tShow"
             else " show"
 
+            Log.d(TAG,"D_STATUS: $deprecatedStatus")
             return deprecatedStatus
         }
 
@@ -116,11 +120,12 @@ class ForceUpdate {
             updateBtn.setOnClickListener {
                 expiredStatus = "update expired"
                 Utills.rateApp(context)
+                (context as Activity).finish()
                 dialog.dismiss()
             }
 
             dialog.show()
-
+            Log.d(TAG,"E_STATUS: $expiredStatus")
             return expiredStatus
         }
 

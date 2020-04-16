@@ -1,9 +1,9 @@
-package com.soumik.forceupdate.networkflow.api
+package com.soumik.forceupdate2.networkflow.api
 
-import com.soumik.forceupdate.networkflow.models.AdvertisementBody
-import com.soumik.forceupdate.networkflow.models.AppDetailsResponse
-import com.soumik.forceupdate.networkflow.models.CheckVersionBody
-import com.soumik.forceupdate.networkflow.models.CheckVersionResponse
+import com.soumik.forceupdate2.networkflow.models.AdvertisementBody
+import com.soumik.forceupdate2.networkflow.models.AppDetailsResponse
+import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
+import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
