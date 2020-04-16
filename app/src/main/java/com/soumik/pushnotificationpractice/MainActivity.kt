@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.gson.JsonIOException
-import com.google.gson.JsonObject
-import com.soumik.forceupdate.classes.ForceUpdate
+import com.soumik.forceupdate2.classes.ForceUpdate
 import com.soumik.pushnotificationpractice.network.apiService
 import com.soumik.pushnotificationpractice.network.model.Data
 import com.soumik.pushnotificationpractice.network.model.NotificationBody
@@ -39,10 +36,10 @@ class MainActivity : AppCompatActivity() {
                 Log.e("TAG", token)
             }
 
-//        val update = ForceUpdate.checkVersion(this,1,44.toString(), resources.getString(R .string.app_name),R.drawable.ic_icon_app)
-////
-////
-//        Log.d("PUSH_UPDATE",update)
+        val update = ForceUpdate.checkVersion(this,1,45.toString(), resources.getString(R .string.app_name),R.drawable.ic_icon_app)
+//
+//
+        Log.d("PUSH_UPDATE",update)
 
 //        val notification = JSONObject()
 //        val notificationBody= JSONObject()

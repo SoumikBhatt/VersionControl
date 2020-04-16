@@ -16,9 +16,13 @@ import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
 import com.soumik.forceupdate2.R
 import com.soumik.forceupdate2.networkflow.api.WebService
 import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
+import com.soumik.forceupdate2.preferences.PreferenceManager
 import com.soumik.utilslibrary.Utills
-
+import java.text.SimpleDateFormat
+import java.util.*
+@SuppressLint("SimpleDateFormat")
 class ForceUpdate {
+
 
     companion object{
 
@@ -33,23 +37,25 @@ class ForceUpdate {
 
         private fun checkVersionFromApi(context: Context,checkVersionBody: CheckVersionBody,appName:String,appIcon:Int):String {
 
-            var status = ""
+            var status =""
 
             WebService.callCheckVersionAPI(checkVersionBody){ response: CheckVersionResponse?, error: String? ->
                 if (error==null){
                     if (response?.success=="true"){
-                        status += when (response.details.status) {
+                        status = when (response.details.status) {
                             1 -> {
                                 //active
                                 "active"
                             }
                             2 -> {
                                 //deprecated
-                                showDeprecatedDialog(context,appName,appIcon)
+                                "deprecated"
+//                                showDeprecatedDialog(context,appName,appIcon)
                             }
                             else -> {
                                 //expired
-                                showExpiredDialog(context,appName,appIcon)
+                                "expired"
+//                                showExpiredDialog(context,appName,appIcon)
                             }
                         }
                     } else Log.d(TAG,"Check Version success is ${response?.success}")
@@ -62,6 +68,8 @@ class ForceUpdate {
 
         @SuppressLint("SetTextI18n")
         private fun showDeprecatedDialog(context: Context, appName: String, appIcon: Int):String {
+
+            var preferenceManager = PreferenceManager(context)
             var deprecatedStatus = ""
             val dialog = Dialog(context,android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -88,6 +96,7 @@ class ForceUpdate {
             }
 
             remindLaterBtn.setOnClickListener {
+                preferenceManager.currentDateTime= currentDateTime
                 deprecatedStatus += "remindLater"
                 dialog.dismiss()
             }
@@ -123,6 +132,7 @@ class ForceUpdate {
                 Utills.rateApp(context)
                 (context as Activity).finish()
                 dialog.dismiss()
+
             }
 
             dialog.show()
@@ -131,7 +141,15 @@ class ForceUpdate {
         }
 
         private const val TAG = "FORCE UPDATE"
+
+        private val currentDateTime:String
+            get() {
+                val c = Calendar.getInstance()
+                val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                return df.format(c.time)
+            }
     }
+
 
 
 }
