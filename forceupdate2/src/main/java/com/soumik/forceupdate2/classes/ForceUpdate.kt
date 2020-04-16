@@ -71,10 +71,14 @@ class ForceUpdate {
                                     } else showDeprecatedDialog(context, appName, appIcon)
 
                                 }
-                                else -> {
+                                3 -> {
                                     //expired
                                     preferenceManager.isDeprecated = false
                                     showExpiredDialog(context, appName, appIcon)
+                                }
+                                else->{
+                                    preferenceManager.isDeprecated = false
+                                    Log.d(TAG, "Already active")
                                 }
                             }
                         } catch (e:Exception) {
