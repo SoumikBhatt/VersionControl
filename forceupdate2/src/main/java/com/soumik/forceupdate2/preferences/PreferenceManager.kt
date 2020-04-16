@@ -3,6 +3,7 @@ package com.soumik.forceupdate2.preferences
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import com.soumik.forceupdate2.classes.ForceUpdate
 
 @SuppressLint("CommitPrefEdits")
 class PreferenceManager(context: Context) {
@@ -15,9 +16,17 @@ class PreferenceManager(context: Context) {
         editor = preference.edit()
     }
 
-    var currentDateTime:String
-    get()=preference.getString("DT","")!!
-    set(value) {editor.putString("DT",value).commit()}
+    var lastReminderDayOfUpdate:String
+        get() = preference.getString("LRD",ForceUpdate.currentDateTime)!!
+        set(value) {editor.putString("LRD",value).commit()}
+
+    var showReminder:Boolean
+        get() = preference.getBoolean("SREMIND",true)
+        set(value) {editor.putBoolean("SREMIND",value).commit()}
+
+    var isDeprecated:Boolean
+        get() = preference.getBoolean("DEP",false)
+        set(value) {editor.putBoolean("DEP",value).commit()}
 
     companion object{
         const val NAME = "Force Update Preference"

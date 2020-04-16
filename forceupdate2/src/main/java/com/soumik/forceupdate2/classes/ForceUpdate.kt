@@ -20,82 +20,72 @@ import com.soumik.forceupdate2.preferences.PreferenceManager
 import com.soumik.utilslibrary.Utills
 import java.text.SimpleDateFormat
 import java.util.*
+
 @SuppressLint("SimpleDateFormat")
 class ForceUpdate {
 
 
-    companion object{
+    companion object {
 
-        fun checkVersion(context: Context,appID:Int,versionCode:String,appName: String,appIcon: Int):String{
+        fun checkVersion(
+            context: Context,
+            appID: Int,
+            versionCode: String,
+            appName: String,
+            appIcon: Int,
+            dayLimit:Int
+        ) {
 
-            var status=""
             val checkVersionBody = CheckVersionBody()
             checkVersionBody.app_id = appID
             checkVersionBody.version_code = versionCode
 
-            WebService.callCheckVersionAPI(checkVersionBody){ response: CheckVersionResponse?, error: String? ->
-                if (error==null){
-                    if (response?.success=="true"){
-                        status = when (response.details.status) {
-                            1 -> {
-                                //active
-                                "active"
-                            }
-                            2 -> {
-                                //deprecated
-                                "deprecated"
-//                                showDeprecatedDialog(context,appName,appIcon)
-                            }
-                            else -> {
-                                //expired
-                                "expired"
-//                                showExpiredDialog(context,appName,appIcon)
-                            }
-                        }
-                    } else Log.d(TAG,"Check Version success is ${response?.success}")
-                } else Log.d(TAG,"Check Version Failed...")
-            }
-
-            return status
+            checkVersionFromApi(context, checkVersionBody, appName, appIcon,dayLimit)
         }
 
-        private fun checkVersionFromApi(context: Context,checkVersionBody: CheckVersionBody,appName:String,appIcon:Int):String {
-
-            var status =""
-
-            WebService.callCheckVersionAPI(checkVersionBody){ response: CheckVersionResponse?, error: String? ->
-                if (error==null){
-                    if (response?.success=="true"){
-                        status = when (response.details.status) {
+        private fun checkVersionFromApi(
+            context: Context,
+            checkVersionBody: CheckVersionBody,
+            appName: String,
+            appIcon: Int,
+            dayLimit: Int
+        ) {
+            val preferenceManager = PreferenceManager(context)
+            WebService.callCheckVersionAPI(checkVersionBody) { response: CheckVersionResponse?, error: String? ->
+                if (error == null) {
+                    if (response?.success == "true") {
+                        when (response.details.status) {
                             1 -> {
                                 //active
-                                "active"
+                                preferenceManager.isDeprecated = false
+                                Log.d(TAG, "Already active")
                             }
                             2 -> {
                                 //deprecated
-                                "deprecated"
-//                                showDeprecatedDialog(context,appName,appIcon)
+                                if (preferenceManager.isDeprecated) {
+                                    Log.d("FORCE UPDATE", "LRD: ${getDiff(preferenceManager.lastReminderDayOfUpdate)}.........REMINDER: ${preferenceManager.showReminder}")
+                                    if (getDiff(preferenceManager.lastReminderDayOfUpdate) > dayLimit && preferenceManager.showReminder) {
+                                        showDeprecatedDialog(context, appName, appIcon)
+                                    } else Log.d(TAG,"Will show after $dayLimit days")
+                                } else showDeprecatedDialog(context, appName, appIcon)
+
                             }
                             else -> {
                                 //expired
-                                "expired"
-//                                showExpiredDialog(context,appName,appIcon)
+                                preferenceManager.isDeprecated = false
+                                showExpiredDialog(context, appName, appIcon)
                             }
                         }
-                    } else Log.d(TAG,"Check Version success is ${response?.success}")
-                } else Log.d(TAG,"Check Version Failed...")
+                    } else Log.d(TAG, "Check Version success is ${response?.success}")
+                } else Log.d(TAG, "Check Version Failed...")
             }
-
-            Log.d(TAG,"STATUS: $status")
-            return status
         }
 
         @SuppressLint("SetTextI18n")
-        private fun showDeprecatedDialog(context: Context, appName: String, appIcon: Int):String {
+        private fun showDeprecatedDialog(context: Context, appName: String, appIcon: Int) {
 
-            var preferenceManager = PreferenceManager(context)
-            var deprecatedStatus = ""
-            val dialog = Dialog(context,android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
+            val preferenceManager = PreferenceManager(context)
+            val dialog = Dialog(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setCancelable(false)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -113,30 +103,27 @@ class ForceUpdate {
             instructionTV.text = "A new version of $appName is available"
 
             updateBtn.setOnClickListener {
-                deprecatedStatus += "update"
                 Utills.rateApp(context)
+                preferenceManager.showReminder != notShowCheck.isChecked
+                preferenceManager.isDeprecated = false
                 (context as Activity).finish()
                 dialog.dismiss()
             }
 
             remindLaterBtn.setOnClickListener {
-                preferenceManager.currentDateTime= currentDateTime
-                deprecatedStatus += "remindLater"
+                preferenceManager.lastReminderDayOfUpdate = currentDateTime
+                preferenceManager.showReminder = !notShowCheck.isChecked
+                preferenceManager.isDeprecated = true
                 dialog.dismiss()
             }
 
-            deprecatedStatus += if (notShowCheck.isChecked) " don'tShow"
-            else " show"
 
             dialog.show()
-            Log.d(TAG,"D_STATUS: $deprecatedStatus")
-            return deprecatedStatus
         }
 
         @SuppressLint("SetTextI18n")
-        private fun showExpiredDialog(context: Context, appName: String, appIcon: Int):String {
-            var expiredStatus = ""
-            val dialog = Dialog(context,android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
+        private fun showExpiredDialog(context: Context, appName: String, appIcon: Int) {
+            val dialog = Dialog(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setCancelable(false)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -152,7 +139,6 @@ class ForceUpdate {
             textTV.text = "$appName needs an update"
 
             updateBtn.setOnClickListener {
-                expiredStatus += "update expired"
                 Utills.rateApp(context)
                 (context as Activity).finish()
                 dialog.dismiss()
@@ -160,20 +146,27 @@ class ForceUpdate {
             }
 
             dialog.show()
-            Log.d(TAG,"E_STATUS: $expiredStatus")
-            return expiredStatus
         }
 
         private const val TAG = "FORCE UPDATE"
 
-        private val currentDateTime:String
+        val currentDateTime: String
             get() {
                 val c = Calendar.getInstance()
                 val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                 return df.format(c.time)
             }
-    }
 
+        @SuppressLint("SimpleDateFormat")
+        private fun getDiff(endDate: String): Int {
+            val s = SimpleDateFormat("yyyy-MM-dd")
+            val cDate = s.format(Date())
+            val toDay = s.parse(cDate)
+            val eDate = s.parse(endDate)
+
+            return if (endDate.isEmpty()) 0 else ((toDay?.time!! - eDate?.time!!) / (1000 * 60 * 60 * 24)).toInt()
+        }
+    }
 
 
 }
