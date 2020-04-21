@@ -32,8 +32,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
 
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     //Utils
     implementation 'com.github.SoumikBhatt:Utills:1.0.1'
 
