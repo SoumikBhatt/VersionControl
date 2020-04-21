@@ -24,6 +24,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_icon_app"
                     android:id="@+id/iv_icon_expired"/>
 
@@ -35,11 +36,10 @@
                     android:text="Patient Aid needs an update"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:padding="3dp"
-                    android:textColor="@android:color/background_dark"
-                    android:layout_toEndOf="@id/iv_icon_expired"
-                    android:layout_toRightOf="@id/iv_icon_expired" />
+                    android:layout_below="@id/iv_icon_expired"
+                    android:textColor="@android:color/background_dark" />
 
             </RelativeLayout>
 

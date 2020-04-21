@@ -1,6 +1,6 @@
 package com.soumik.forceupdate2.networkflow.models
 
-class AdvertisementBody{
+class AppDetailsBody{
     var app_id:Int?=null
 }
 

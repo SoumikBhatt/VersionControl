@@ -15,6 +15,8 @@ import android.widget.TextView
 import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
 import com.soumik.forceupdate2.R
 import com.soumik.forceupdate2.networkflow.api.WebService
+import com.soumik.forceupdate2.networkflow.models.AppDetailsBody
+import com.soumik.forceupdate2.networkflow.models.AppDetailsResponse
 import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
 import com.soumik.forceupdate2.preferences.PreferenceManager
 import com.soumik.utilslibrary.Utills
@@ -63,12 +65,13 @@ class ForceUpdate {
                                 }
                                 2 -> {
                                     //deprecated
+                                    val expiryDate = response.details.expiryDate
                                     if (preferenceManager.isDeprecated) {
                                         Log.d("FORCE UPDATE", "LRD: ${getDiff(preferenceManager.lastReminderDayOfUpdate)}.........REMINDER: ${preferenceManager.showReminder}")
                                         if (getDiff(preferenceManager.lastReminderDayOfUpdate) > dayLimit && preferenceManager.showReminder) {
-                                            showDeprecatedDialog(context, appName, appIcon)
+                                            showDeprecatedDialog(context, appName, appIcon,expiryDate)
                                         } else Log.d(TAG,"Will show after $dayLimit days")
-                                    } else showDeprecatedDialog(context, appName, appIcon)
+                                    } else showDeprecatedDialog(context, appName, appIcon,expiryDate)
 
                                 }
                                 3 -> {
@@ -92,7 +95,7 @@ class ForceUpdate {
         }
 
         @SuppressLint("SetTextI18n")
-        private fun showDeprecatedDialog(context: Context, appName: String, appIcon: Int) {
+        private fun showDeprecatedDialog(context: Context, appName: String, appIcon: Int,expiryDate:String?) {
 
             val preferenceManager = PreferenceManager(context)
             val dialog = Dialog(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen).apply {
@@ -110,7 +113,7 @@ class ForceUpdate {
             val notShowCheck = dialog.findViewById<CheckBox>(R.id.check_donT_show)
 
             iconIV.setImageResource(appIcon)
-            instructionTV.text = "A new version of $appName is available"
+            instructionTV.text = "This version of $appName is deprecated, will no longer be available after ${expiryDate?:""}"
 
             updateBtn.setOnClickListener {
                 Utills.rateApp(context)
@@ -175,6 +178,33 @@ class ForceUpdate {
             val eDate = s.parse(endDate)
 
             return if (endDate.isEmpty()) 0 else ((toDay?.time!! - eDate?.time!!) / (1000 * 60 * 60 * 24)).toInt()
+        }
+
+
+
+        fun appDetails(context: Context,appID: Int){
+            val appDetailsBody = AppDetailsBody()
+            appDetailsBody.app_id=appID
+
+            fetchDetailsFromServer(context,appDetailsBody)
+        }
+
+        private fun fetchDetailsFromServer(context: Context,appDetailsBody: AppDetailsBody) {
+            val preferenceManager = PreferenceManager(context)
+
+            WebService.callAppDetails(appDetailsBody){ response: AppDetailsResponse?, error: String? ->
+
+                if (error==null){
+                    if (response?.success=="true"){
+                        try {
+
+                        } catch (e:Exception){
+                            Log.d(TAG,"Latest Version is null on ${response.app.appName}")
+                            Log.d(TAG,"Error: ${e.localizedMessage}}")
+                        }
+                    }
+                } else Log.d(TAG,"Fetching App Details Failed")
+            }
         }
     }
 

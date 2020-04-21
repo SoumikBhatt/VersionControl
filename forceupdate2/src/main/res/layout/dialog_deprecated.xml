@@ -24,6 +24,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_icon_app"
                     android:id="@+id/iv_icon_deprecated"/>
 
@@ -32,14 +33,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:id="@+id/tv_dialog_deprecated_text"
-                    android:text="New update available"
+                    android:text="This version is deprecated"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
                     android:padding="3dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@android:color/background_dark"
-                    android:layout_toEndOf="@id/iv_icon_deprecated"
-                    android:layout_toRightOf="@id/iv_icon_deprecated" />
+                    android:layout_below="@id/iv_icon_deprecated"/>
 
             </RelativeLayout>
 
@@ -47,10 +47,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_dialog_deprecated_inst"
-                android:text="A new version of Patient Aid is available"
-                android:layout_gravity="center"
+                android:text="This version of the app is deprecated, will no longer be available after 22-06-2020"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textColor="#252525"
                 android:padding="3dp"/>
 

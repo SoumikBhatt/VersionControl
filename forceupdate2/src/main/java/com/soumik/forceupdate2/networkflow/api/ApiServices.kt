@@ -1,6 +1,6 @@
 package com.soumik.forceupdate2.networkflow.api
 
-import com.soumik.forceupdate2.networkflow.models.AdvertisementBody
+import com.soumik.forceupdate2.networkflow.models.AppDetailsBody
 import com.soumik.forceupdate2.networkflow.models.AppDetailsResponse
 import com.soumik.forceupdate2.networkflow.models.CheckVersionBody
 import com.soumik.forceupdate2.networkflow.models.CheckVersionResponse
@@ -15,5 +15,5 @@ interface ApiServices {
     fun checkVersionFU(@Body checkVersionBody: CheckVersionBody, @Header("X-Auth-Token") key:String): Call<CheckVersionResponse>
 
     @POST("api/app")
-    fun appDetails(@Body bodyModel: AdvertisementBody, @Header("X-Auth-Token") key:String): Call<AppDetailsResponse>
+    fun appDetails(@Body bodyModel: AppDetailsBody, @Header("X-Auth-Token") key:String): Call<AppDetailsResponse>
 }
