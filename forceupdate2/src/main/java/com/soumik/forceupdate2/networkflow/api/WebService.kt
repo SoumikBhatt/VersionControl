@@ -22,7 +22,7 @@ object WebService {
             }
 
             override fun onResponse(call: Call<CheckVersionResponse>, response: Response<CheckVersionResponse>) {
-                Log.d("OnResponse","Check Version Body-> ${Gson().toJson(response.body())}")
+                Log.d("OnResponse","Check Version Body-> ${response.body()}")
                 Log.d("OnResponse","Check Version Code-> ${response.code()}")
 
                 if (response.isSuccessful) callBack(response.body(),null)
@@ -42,7 +42,7 @@ object WebService {
                 call: Call<AppDetailsResponse>,
                 response: Response<AppDetailsResponse>
             ) {
-                Log.d("OnResponse","App Details Body-> ${Gson().toJson(response.body())}")
+                Log.d("OnResponse","App Details Body-> ${response.body()}")
                 Log.d("OnResponse","App Details Code-> ${response.code()}")
 
                 if (response.isSuccessful) callBack(response.body(),null)
