@@ -107,6 +107,7 @@ class ForceUpdate {
 
             val iconIV = dialog.findViewById<ImageView>(R.id.iv_icon_deprecated)
             val textTV = dialog.findViewById<TextView>(R.id.tv_dialog_deprecated_text)
+            val titleTV = dialog.findViewById<TextView>(R.id.tv_dialog_deprecated_text2)
             val instructionTV = dialog.findViewById<TextView>(R.id.tv_dialog_deprecated_inst)
             val updateBtn = dialog.findViewById<Button>(R.id.btn_deprecated_update)
             val remindLaterBtn = dialog.findViewById<Button>(R.id.btn_deprecated_remind_later)
@@ -114,7 +115,8 @@ class ForceUpdate {
 
             iconIV.setImageResource(appIcon)
             textTV.text=appName
-            instructionTV.text = "The current version is deprecated. \nThis version of the $appName is deprecated, will no longer be supported after $expiryDate"
+            titleTV.text = "The current version is deprecated."
+            instructionTV.text = "This version of the $appName is deprecated, will no longer be supported after $expiryDate"
 
             updateBtn.setOnClickListener {
                 Utills.rateApp(context)
@@ -146,12 +148,14 @@ class ForceUpdate {
 
             val iconIV = dialog.findViewById<ImageView>(R.id.iv_icon_expired)
             val textTV = dialog.findViewById<TextView>(R.id.tv_dialog_expired_text)
+            val titleTV = dialog.findViewById<TextView>(R.id.tv_dialog_expired_text2)
             val instructionTV = dialog.findViewById<TextView>(R.id.tv_dialog_expired_inst)
             val updateBtn = dialog.findViewById<Button>(R.id.btn_expired_update)
 
             iconIV.setImageResource(appIcon)
             textTV.text = appName
-            instructionTV.text = "This version is no longer supported.\nTo continue using $appName update to the latest version"
+            titleTV.text = "This version is no longer supported."
+            instructionTV.text = "To continue using $appName update to the latest version"
             updateBtn.text = "Update $appName to the latest version"
 
             updateBtn.setOnClickListener {

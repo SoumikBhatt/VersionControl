@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    app:cardBackgroundColor="#FFFFFF"
     android:layout_height="match_parent">
 
 
@@ -46,8 +47,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_dialog_deprecated_text2"
+                android:text="The current version is deprecated"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/background_dark"
+                android:layout_below="@id/iv_icon_deprecated"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/tv_dialog_deprecated_inst"
-                android:text="The current version is deprecated. \nThis version of the appname is deprecated, will no longer be supported after 22-06-2020"
+                android:text="This version of the appname is deprecated, will no longer be supported after 22-06-2020"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
