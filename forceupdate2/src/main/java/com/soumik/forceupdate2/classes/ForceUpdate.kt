@@ -113,7 +113,8 @@ class ForceUpdate {
             val notShowCheck = dialog.findViewById<CheckBox>(R.id.check_donT_show)
 
             iconIV.setImageResource(appIcon)
-            instructionTV.text = "This version of $appName is deprecated, will no longer be available after ${expiryDate?:""}"
+            textTV.text=appName
+            instructionTV.text = "The current version is deprecated. \nThis version of the $appName is deprecated, will no longer be supported after $expiryDate"
 
             updateBtn.setOnClickListener {
                 Utills.rateApp(context)
@@ -149,7 +150,9 @@ class ForceUpdate {
             val updateBtn = dialog.findViewById<Button>(R.id.btn_expired_update)
 
             iconIV.setImageResource(appIcon)
-            textTV.text = "$appName needs an update"
+            textTV.text = appName
+            instructionTV.text = "This version is no longer supported.\nTo continue using $appName update to the latest version"
+            updateBtn.text = "Update $appName to the latest version"
 
             updateBtn.setOnClickListener {
                 Utills.rateApp(context)

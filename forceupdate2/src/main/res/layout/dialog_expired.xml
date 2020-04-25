@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:id="@+id/tv_dialog_expired_text"
-                    android:text="Patient Aid needs an update"
+                    android:text="Patient Aid"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
@@ -47,26 +47,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_dialog_expired_inst"
-                android:text="To use this app, download the latest version"
+                android:text="This version is no longer supported.\nTo continue using App name update to the latest version"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textColor="#252525"
                 android:padding="3dp"/>
 
             <Button
-                android:layout_width="275dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:minHeight="40dp"
+                android:paddingRight="5dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
                 android:id="@+id/btn_expired_update"
-                android:text="Update"
+                android:text="Update App name to the latest version"
                 android:textColor="@android:color/white"
                 android:background="#009161"
                 android:layout_marginTop="15dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="30dp" />
+                android:layout_marginLeft="30dp"
+                android:paddingLeft="5dp" />
 
         </LinearLayout>
 
