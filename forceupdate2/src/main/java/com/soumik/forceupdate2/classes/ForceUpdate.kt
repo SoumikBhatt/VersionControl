@@ -27,6 +27,7 @@ import java.util.*
 class ForceUpdate {
 
 
+
     companion object {
 
         fun checkVersion(
@@ -187,16 +188,19 @@ class ForceUpdate {
             return if (endDate.isEmpty()) 0 else ((toDay?.time!! - eDate?.time!!) / (1000 * 60 * 60 * 24)).toInt()
         }
 
-
-
-        fun appDetails(context: Context,appID: Int){
+        fun checkAppDetails(context: Context, appID: Int, versionCode: String,appIcon: Int,appName: String){
             val appDetailsBody = AppDetailsBody()
+            val preferenceManager = PreferenceManager(context)
             appDetailsBody.app_id=appID
 
-            fetchDetailsFromServer(context,appDetailsBody)
+            if (!preferenceManager.isVersionAvailableDialogShown) {
+                fetchDetailsFromServer(context,appDetailsBody,versionCode,appIcon,appName)
+            } else {
+                Log.d(TAG,"Not Calling app details api, cause already shown")
+            }
         }
 
-        private fun fetchDetailsFromServer(context: Context,appDetailsBody: AppDetailsBody) {
+        private fun fetchDetailsFromServer(context: Context,appDetailsBody: AppDetailsBody,versionCode: String,appIcon: Int,appName: String) {
             val preferenceManager = PreferenceManager(context)
 
             WebService.callAppDetails(appDetailsBody){ response: AppDetailsResponse?, error: String? ->
@@ -204,7 +208,9 @@ class ForceUpdate {
                 if (error==null){
                     if (response?.success=="true"){
                         try {
-
+                            if (response.latestVersion?.versionCode!!>versionCode.toInt()) {
+                                showNewVersionAvailableDialog(context,versionCode,appIcon,appName)
+                            }
                         } catch (e:Exception){
                             Log.d(TAG,"Latest Version is null on ${response.app.appName}")
                             Log.d(TAG,"Error: ${e.localizedMessage}}")
@@ -212,6 +218,28 @@ class ForceUpdate {
                     }
                 } else Log.d(TAG,"Fetching App Details Failed")
             }
+        }
+
+        @SuppressLint("SetTextI18n")
+        private fun showNewVersionAvailableDialog(context: Context, versionCode: String, appIcon: Int, appName: String) {
+
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setContentView(R.layout.dialog_new_version)
+
+            val icon = dialog.findViewById<ImageView>(R.id.iv_icon_version)
+            val updateButton = dialog.findViewById<Button>(R.id.btn_update)
+            val messageTV = dialog.findViewById<TextView>(R.id.tv_msg_update)
+
+            messageTV.text = "An updated version of $appName is available"
+            icon.setImageResource(appIcon)
+
+            updateButton.setOnClickListener {
+                Utills.rateApp(context)
+            }
+
         }
     }
 

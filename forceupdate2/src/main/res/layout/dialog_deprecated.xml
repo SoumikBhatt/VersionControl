@@ -17,37 +17,47 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_icon_app"
-                    android:id="@+id/iv_icon_deprecated"/>
-
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/tv_dialog_deprecated_text"
-                    android:text="App name"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:padding="3dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@android:color/background_dark"
-                    android:layout_below="@id/iv_icon_deprecated"/>
+                    android:padding="10dp"
+                    android:layout_height="wrap_content">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_icon_app"
+                        android:id="@+id/iv_icon_deprecated"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_dialog_deprecated_text"
+                        android:text="App name"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@android:color/background_dark"
+                        android:layout_below="@id/iv_icon_deprecated"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:id="@+id/tv_dialog_deprecated_text2"
                 android:text="The current version is deprecated"
                 android:textSize="16sp"
@@ -57,8 +67,7 @@
                 android:textAlignment="center"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:textColor="@android:color/background_dark"
-                android:layout_below="@id/iv_icon_deprecated"/>
+                android:textColor="@android:color/background_dark"/>
 
             <TextView
                 android:layout_width="wrap_content"

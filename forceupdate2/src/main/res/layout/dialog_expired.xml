@@ -17,9 +17,16 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
+                android:padding="10dp"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -43,6 +50,8 @@
                     android:textColor="@android:color/background_dark" />
 
             </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"

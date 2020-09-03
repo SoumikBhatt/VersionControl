@@ -28,6 +28,10 @@ class PreferenceManager(context: Context) {
         get() = preference.getBoolean("DEP",false)
         set(value) {editor.putBoolean("DEP",value).commit()}
 
+    var isVersionAvailableDialogShown:Boolean
+    get() = preference.getBoolean("VADS",false)
+    set(value) {editor.putBoolean("VADS",value).commit()}
+
     companion object{
         const val NAME = "Force Update Preference"
         const val MODE = 0
