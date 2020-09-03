@@ -223,6 +223,7 @@ class ForceUpdate {
         @SuppressLint("SetTextI18n")
         private fun showNewVersionAvailableDialog(context: Context, versionCode: Int, appIcon: Int, appName: String) {
 
+            val preferenceManager = PreferenceManager(context)
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(true)
@@ -241,6 +242,7 @@ class ForceUpdate {
                 dialog.dismiss()
             }
 
+            preferenceManager.isVersionAvailableDialogShown=true
             dialog.show()
 
         }
