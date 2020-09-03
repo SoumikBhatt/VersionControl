@@ -36,10 +36,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e("TAG", token)
             }
 
-        val update = ForceUpdate.checkVersion(this,1,45.toString(), resources.getString(R .string.app_name),R.drawable.ic_icon_app)
-//
-//
-        Log.d("PUSH_UPDATE",update)
+        ForceUpdate.checkAppDetails(this,3,BuildConfig.VERSION_CODE.toString(),R.drawable.ic_icon_app,"Demo App")
 
 //        val notification = JSONObject()
 //        val notificationBody= JSONObject()

@@ -188,7 +188,7 @@ class ForceUpdate {
             return if (endDate.isEmpty()) 0 else ((toDay?.time!! - eDate?.time!!) / (1000 * 60 * 60 * 24)).toInt()
         }
 
-        fun checkAppDetails(context: Context, appID: Int, versionCode: String,appIcon: Int,appName: String){
+        fun checkAppDetails(context: Context, appID: Int, versionCode: Int,appIcon: Int,appName: String){
             val appDetailsBody = AppDetailsBody()
             val preferenceManager = PreferenceManager(context)
             appDetailsBody.app_id=appID
@@ -200,7 +200,7 @@ class ForceUpdate {
             }
         }
 
-        private fun fetchDetailsFromServer(context: Context,appDetailsBody: AppDetailsBody,versionCode: String,appIcon: Int,appName: String) {
+        private fun fetchDetailsFromServer(context: Context,appDetailsBody: AppDetailsBody,versionCode: Int,appIcon: Int,appName: String) {
             val preferenceManager = PreferenceManager(context)
 
             WebService.callAppDetails(appDetailsBody){ response: AppDetailsResponse?, error: String? ->
@@ -221,7 +221,7 @@ class ForceUpdate {
         }
 
         @SuppressLint("SetTextI18n")
-        private fun showNewVersionAvailableDialog(context: Context, versionCode: String, appIcon: Int, appName: String) {
+        private fun showNewVersionAvailableDialog(context: Context, versionCode: Int, appIcon: Int, appName: String) {
 
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -238,7 +238,10 @@ class ForceUpdate {
 
             updateButton.setOnClickListener {
                 Utills.rateApp(context)
+                dialog.dismiss()
             }
+
+            dialog.show()
 
         }
     }
