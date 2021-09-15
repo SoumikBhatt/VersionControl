@@ -263,7 +263,13 @@ class VersionControl {
             }
 
             preferenceManager.isVersionAvailableDialogShown=true
-            dialog.show()
+            try{
+                dialog.show()
+            }
+            catch (e:java.lang.Exception){
+                e.printStackTrace()
+            }
+
 
         }
     }
